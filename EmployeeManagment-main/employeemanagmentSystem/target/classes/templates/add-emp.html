@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/.">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <title>Home page</title>
+
+    <!-- Inline styling for background image and jumbotron -->
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2016/10/10/11/09/field-1728099_960_720.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .jumbotron {
+            background-color: transparent;
+        }
+
+        .card {
+            background-color: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+
+<!-- Navigation bar with links to different pages and logout button -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">EMP System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <a class="nav-link" th:href="@{/welcome}">Home</a>
+
+            <li class="nav-item active"><a class="nav-link" href="addemp">Add EMP</a></li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/home}">All Employees</a>
+            </li>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                </li>
+            </ul>
+
+        </ul>
+    </div>
+</nav>
+<!-- End of Navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Form to add a new employee -->
+                    <h4 class="text-center text-primary">Add Emp</h4>
+                    <form th:action="@{/registerr}" method="post">
+
+                        <div class="form-group">
+                            <label>Enter Full Name</label>
+                            <input type="text" class="form-control" name="name" required placeholder="Please enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Enter Address</label>
+                            <input type="text" class="form-control" name="address" required placeholder="Please enter your address">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Enter Email</label>
+                            <input type="email" class="form-control" name="email" required placeholder="Please enter your email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Enter Phone No</label>
+                            <input type="number" class="form-control" name="phno" required placeholder="Please enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Enter Salary</label>
+                            <input type="number" class="form-control" name="salary" required placeholder="Please enter your salary">
+                        </div>
+
+                        <!-- Success message displayed after successfully adding a new employee -->
+                        <div th:if="${msg}" th:text="${msg}" class="alert alert-success"></div>
+
+                        <!-- Inline script to validate form input fields, making sure all required fields are filled out -->
+                        <script>
+                            const form = document.querySelector('form');
+                            form.addEventListener('submit', function(event) {
+                                const inputs = this.querySelectorAll('input[required]');
+                                let isValid = true;
+                                inputs.forEach(function(input) {
+                                  if (!input.value) {
+                                    alert('Please fill out all required fields.');
+                                    isValid = false;
+                                  }
+                                });
+                                if (!isValid) {
+                                  event.preventDefault();
+                                }
+                            });
+                        </script>
+
+
+                        <button class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    function logout() {
+      window.location.href = "/signin";
+    }
+  </script>
+</body>
+</html>
